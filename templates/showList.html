@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Show List page</title>        
+    </head>
+    <body>
+        <h1>Welcome to Show List page!</h1>
+        {% for x in contentList %}
+            <h3>{{x}}</h3>
+            {% if x == "tim" %}
+                <p>Oh, the tallest guy ^^</p>
+            {% elif x == "sing" %}
+                <p>Oh, the fattest guy :) </p>
+            {% else %}
+                <p>hey, the buddy who always first got drunk</p>
+            {% endif %}
+        {% endfor%}
+    </body>
+
+</html>

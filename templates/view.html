@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block title %}Confirmation{% endblock %}
+
+{% block content %}
+    <p>Great!</p>
+    <p>You chose the Name: {{ item.name }}</p>
+    <p>Your password: {{ item.password }}</p>
+    <p>Please ensure you are ready to take this challenge</p>
+    <p>After clicking ENTER button, you will have 15 minutes of HERO power to escape from this digital </p>
+    <p>If overtime, you cannot exit from this mess and you may need to retry</p>
+    <h3>Ready to Go?</h3>
+    <button id="enterBtn"></button>
+{% endblock %}
+
+{% block script %}
+    <script src="../static/js/view.js"></script>
+{% endblock %}

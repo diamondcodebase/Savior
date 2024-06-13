@@ -1,0 +1,5 @@
+const startButton = document.getElementById('startButton');
+
+startButton.addEventListener('click', () => {
+    location.replace("register");
+});
