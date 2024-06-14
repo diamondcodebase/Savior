@@ -7,8 +7,8 @@ app.secret_key = "hello" # secret_key is essential to start the session
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///users.sqlite3" # configure the sqlite database setting
 app.config["SQLALCHEMY_TRACK_MODIFICATION"] = False # this is optional setting
 
-allowTime = 2
-app.permanent_session_lifetime = timedelta(minutes=allowTime) # set the permanent
+allowTimeMinutes = 2
+app.permanent_session_lifetime = timedelta(minutes=allowTimeMinutes) # set the permanent
 
 db = SQLAlchemy(app) # set up the database
 
@@ -109,7 +109,7 @@ def level3():
             flash("Your password is incorrect, please correct and try again")
         else:
             found_hero = heros.query.filter_by(name=hero).first() # query the selected hero from database
-            if datetime.strptime(found_hero.modifyTime, '%Y-%m-%d %H:%M:%S') + timedelta(0, 60*allowTime) < datetime.now():
+            if datetime.strptime(found_hero.modifyTime, '%Y-%m-%d %H:%M:%S') + timedelta(0, 60*allowTimeMinutes) < datetime.now():
                 flash("Your hero power time is over, mission failed. Please return to the starting point")
             else:
                 return redirect(url_for("congrat")) # if player give correct information of hero and password, go to congrat, end game    
