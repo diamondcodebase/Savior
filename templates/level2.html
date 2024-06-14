@@ -1,17 +1,25 @@
 {% extends "base.html" %}
 {% block title %} 
-	Level 1
+	Level 2
+{% endblock %}
+
+{% block css %}
+	<link rel="stylesheet" href="static/css/level2.css">
 {% endblock %}
 
 {% block content %}    
-	<h1>This is Level 1</h1>
-	<form action="#" method="post">
-		<p>Name:</p>
-		<p><input type="text" name="nm"/></p>
-		<p>Password:</p>
-		<p><input type="text" name="pw"/></p>
-		<p><input type="submit" value="submit"/></p>
-	</form>
+	<h1>This is Level 2</h1>
+	<h2>Find the button can help you to get score and reach 50 to pass to next level</h2>
+	<div class="container">
+		<p>Score: <span id="scoreDisplay">0</span></p>
+		<button id="exitBtn">Go To Next Level!</button>
+	</div>
+	<div id="buttons-container"></div>
 {% endblock %}
+
+{% block script %}
+	<script src="static/js/level2.js"></script>
+{% endblock %}
+
 
 

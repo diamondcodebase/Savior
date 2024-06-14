@@ -26,45 +26,79 @@ def start():
     return render_template("start.html")
 
 
-@app.route("/register", methods=["POST","GET"])
-def register():
-    if "user" in session:
-        user = session["user"]
-        if request.method == "POST":
-            password = request.form["password"]
-            session["password"] = password
-        else:
-            if "password" in session:
-                 password = session["password"]
+@app.route("/register", methods=["POST", "GET"])
+def register():    
+    if request.method == "POST":
+        # set the session to be permanent first
+        session.permanent = True
+        # if the request is POST, store the hero and password in session
+        hero = request.form["hero"]
+        password = request.form["password"]
+        session["hero"] = hero
+        session["password"] = password
+        # redirect to the view page with session of hero and password
+        return redirect(url_for("view"))
     else:
         return render_template("register.html")
 
 
+@app.route("/view")
+def view():
+    return render_template("view.html")
+
+
 @app.route("/0")
 def level0():
-    return render_template("level0.html")
+    if "hero" in session:
+        session.permanent = False
+        return render_template("level0.html")
+    else:
+        return render_template("register.html")
 
 
-@app.route("/1", methods=["GET"])
+@app.route("/1", methods=["POST", "GET"])
 def level1():
-    if "user" in session:
-        return redirect(url_for("2")) # if the session contains information of user, the GET method still stay in login status        
+    if request.method == "POST":
+        # if the request is POST, store the um and pw in session
+        nm = request.form["nm"]
+        pw = request.form["pw"]
+        session["nm"] = nm
+        session["pw"] = pw
+        if session["nm"] != "username":
+            flash("In Name blank, please enter username")
+        elif session["pw"] != "incorrect":
+            flash("Your password is incorrect")
+        else:
+            return redirect(url_for("level2")) # if the session contains correct information of nm and pw, go to Level2
+    
     return render_template("level1.html")
 
 
-@app.route("/2")
+@app.route("/oneplusone")
 def level2():
-    return render_template("level2.html")
+    return render_template("level2.html")    
 
 
-@app.route("/3")
+@app.route("/san", methods=["POST", "GET"])
 def level3():
+    if request.method == "POST":
+        # if the request is POST, store the um and pw in session
+        hero = request.form["hero"]
+        password = request.form["password"]
+
+        if hero != session["hero"]:
+            flash("Your hero name is incorrect, please correct and try again")
+        elif password != session["password"]:
+            flash("Your password is incorrect, please correct and try again")
+        else:
+            return redirect(url_for("congrat")) # if player give correct information of hero and password, go to congrat, end game
+    
     return render_template("level3.html")
 
 
 @app.route("/congrat")
-def done():
-    return render_template("congra.html")
+def congrat():
+    return render_template("congrat.html")
 
 if __name__ == "__main__" :
     app.run()

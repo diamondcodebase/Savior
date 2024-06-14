@@ -2,14 +2,11 @@
 <html>
 
 <head>
-  <!-- use block title and block content to customize different page from base page-->
-  <!-- then you can build child page from this base page (refer to childpage.html in the same folder)-->
-  <!-- it must within the same folder to let them see each other -->
   <title>{% block title %}{% endblock %}</title>
-  <!-- And import bootstrap css : https://getbootstrap.com/docs/4.3/getting-started/introduction/ -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
     integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-  {%block head %}{% endblock %}
+  {% block header %}{% endblock %}
+  {% block css %}{% endblock %}
 </head>
 
 <body>
@@ -29,9 +26,6 @@
         </li>
         <li class="nav-item">
           <a class="nav-link invisible" id="light_btn" href="/4l">Turn On The Light</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
         </li>
       </ul>
     </div>

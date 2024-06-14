@@ -1,18 +1,27 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>Level 3</title>        
-    </head>
-    <body>
-        <h1>Welcome to Level 3!</h1>
-        {% for _ in range(10) %}
-            <p>Hello</p>
-        {% endfor%}
-        {% for x in range(10) %}
-            {% if x % 2 == 1 %}
-                <p>{{x}}</p>
-            {% endif %}
-        {% endfor %}
-    </body>
+{% extends "base.html" %}
 
-</html>
+{% block title %} 
+	Level 3
+{% endblock %}
+
+{% block content %}   
+        <h1>Welcome to Level 3!</h1>
+        <form action="#" method="post">
+            <h3>Please enter your hero name and password below</h3>
+            <p>Hero Name:</p>
+            <p><input type="text" name="hero"/></p>
+    
+            <p>Password:</p>
+            <p><input type="text" name="password"/></p>
+            
+            {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                    {% for msg in messages %}
+                        <p style="color:red">{{msg}}</p>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+    
+            <p><input type="submit" value="submit"/></p>
+        </form>
+{% endblock %}

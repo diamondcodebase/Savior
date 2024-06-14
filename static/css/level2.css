@@ -1,0 +1,25 @@
+.button {
+    width: 100px;
+    height: 100px;
+    font-size: 24px;
+    margin: 10px;
+    background-color: #223333;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+  }
+
+  .highlight {
+    background-color: #888822
+  }
+
+  #exitBtn{
+    display:none;
+  }
+
+  #scoreBlock {
+    font-size: 22px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-weight: bolder;
+  }
