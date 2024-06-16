@@ -6,12 +6,13 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
     integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
   {% block header %}{% endblock %}
+  <link rel="stylesheet" href="../static/css/base.css">
   {% block css %}{% endblock %}
 </head>
 
 <body>
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="#">Navbar</a>
+    <a class="navbar-brand" href="/"><img height='70px' src='../static/images/savior_logo.png'></a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
       aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -22,14 +23,17 @@
           <a class="nav-link" href="/">Starting Point<span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/">Return</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link invisible" id="light_btn" href="/4l">Turn On The Light</a>
+          <a class="nav-link" href="/about">About</a>
         </li>
       </ul>
     </div>
+    <div class="ml-auto">
+      <div id="timer-container" class="hidden">
+        <div class="timer" id="timer">Count Down <span id="remainTime">0:00</span></div>
+      </div>
+    </div>
   </nav>
+
 
   <div class="container-fluid">
     {% block content %}{% endblock %}
@@ -49,8 +53,9 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js"
     integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
     crossorigin="anonymous"></script>
-
+  <script src="../static/js/timer.js"></script>
     {% block script %}{% endblock %}
+    {% block additionalscript %}{% endblock %}
 </body>
 
 </html>

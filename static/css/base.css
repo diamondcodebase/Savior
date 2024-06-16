@@ -1,0 +1,39 @@
+h1, h2, h3, h4, h5, h6, figure {
+    color: #000;
+    font-family: "Space Mono", Arial, serif;
+    font-weight: 400;
+    margin: 0 0 20px 0;
+  }
+
+p {
+    font-size: x-large;
+    font-weight: bold;
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+button, input, select {
+    font-size: x-large;
+    font-weight: bolder;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+#timer-container {
+    text-align: center;
+    padding: 10px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+
+  .timer {
+    font-size: 20px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 10px;
+  }
+
+  .hidden {
+    display:none;
+  }
