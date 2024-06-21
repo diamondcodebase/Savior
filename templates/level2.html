@@ -1,4 +1,4 @@
-{% extends "level.html" %}
+{% extends "base.html" %}
 {% block title %} 
 	Level 2
 {% endblock %}
@@ -12,17 +12,14 @@
 	<h1>This is Level 2</h1>
 	<h2>Find the button can help you to get score and reach 50 to pass to next level</h2>
 	<div class="container">
-		<p id="scoreDisplay">Score: <span id="scoreCount">0</span></p>
+		<p>Score: <span id="scoreDisplay">0</span></p>
+		<button id="exitBtn">Go To Next Level!</button>
 	</div>
-	<form action="#" method="post">
-		<input type="text" name="count" value="50" class="hidden">		
-		<input type="submit" value="submit" id="exitBtn">
-	</form>
 	<div id="buttons-container"></div>
 </div>    
 {% endblock %}
 
-{% block additionalscript %}
+{% block script %}
 	<script src="static/js/level2.js"></script>
 {% endblock %}
 

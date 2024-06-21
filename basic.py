@@ -7,7 +7,7 @@ app.secret_key = "hello" # secret_key is essential to start the session
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///users.sqlite3" # configure the sqlite database setting
 app.config["SQLALCHEMY_TRACK_MODIFICATION"] = False # this is optional setting
 
-allowTimeMinutes = 3
+allowTimeMinutes = 2
 app.permanent_session_lifetime = timedelta(minutes=allowTimeMinutes) # set the permanent
 
 db = SQLAlchemy(app) # set up the database
@@ -27,23 +27,11 @@ class heros(db.Model):
 
 @app.route("/")
 def start():
-    session.pop("hero", None)
     return render_template("start.html")
 
 
-@app.route("/about")
-def about():
-    session.pop("hero", None)
-    return render_template("about.html")
-
-
-@app.route("/barrier")
-def barrier():
-    return render_template("barrier.html")
-
-
 @app.route("/register", methods=["POST", "GET"])
-def register():   
+def register():    
     if request.method == "POST":
         # set the session to be permanent first
         session.permanent = True
@@ -64,7 +52,6 @@ def register():
             # redirect to the view page with session of hero and password
             return redirect(url_for("view"))
         else:
-            session["allowTimeMinutes"] = allowTimeMinutes
             return render_template("register.html")
     else:
         return render_template("register.html")
@@ -72,26 +59,20 @@ def register():
 
 @app.route("/view")
 def view():
-    if not "hero" in session:
-        return redirect(url_for("barrier"))
-    else:
-        return render_template("view.html")
+    return render_template("view.html")
 
 
 @app.route("/0")
 def level0():
-    if not "hero" in session:
-        return redirect(url_for("barrier"))
-    else:
-        session.permanent = False        
+    if "hero" in session:
+        session.permanent = False
         return render_template("level0.html")
-      
+    else:
+        return render_template("register.html")
+
 
 @app.route("/1", methods=["POST", "GET"])
-def level1():        
-    if not "hero" in session:
-        return redirect(url_for("barrier"))
-    
+def level1():
     if request.method == "POST":
         # if the request is POST, store the um and pw in session
         nm = request.form["nm"]
@@ -103,37 +84,18 @@ def level1():
         elif session["pw"] != "incorrect":
             flash("Your password is incorrect")
         else:
-            return redirect(url_for("level2")) # if the session contains correct information of nm and pw, go to Level2    
+            return redirect(url_for("level2")) # if the session contains correct information of nm and pw, go to Level2
+    
     return render_template("level1.html")
 
 
-
-@app.route("/oneplusone", methods=["POST", "GET"])
+@app.route("/oneplusone")
 def level2():
-    if not "hero" in session:
-        return redirect(url_for("barrier"))
-    if not "nm" in session or not "pw" in session or session["nm"] != "username" or session["pw"] != "incorrect":
-        return redirect(url_for("level1"))
-    
-    if request.method == "POST":
-        # if the request is POST, store the count in session
-        count = request.form["count"]
-        session["count"] = count
-        if session["count"]:
-            return redirect(url_for("level3"))
-
     return render_template("level2.html")    
 
 
 @app.route("/san", methods=["POST", "GET"])
 def level3():
-    if not "hero" in session:
-        return redirect(url_for("barrier"))
-    if session["nm"] != "username" or session["pw"] != "incorrect":
-        return redirect(url_for("level1"))
-    if not "count" in session:
-        return redirect(url_for("level2"))
-
     if request.method == "POST":
         # if the request is POST, store the um and pw in session
         hero = request.form["hero"]
@@ -156,7 +118,6 @@ def level3():
 
 @app.route("/congrat")
 def congrat():
-    session.pop("hero", None)
     return render_template("congrat.html")
 
 if __name__ == "__main__" :

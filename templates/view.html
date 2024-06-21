@@ -1,4 +1,4 @@
-{% extends "nonlevel.html" %}
+{% extends "base.html" %}
 {% block title %}Confirmation{% endblock %}
 
 {% block content %}
@@ -6,7 +6,7 @@
         <p>That's Great!</p>
         <p>You chose {{ session.hero }} and your password: {{ session.password }}</p>
         <p>Please remember your hero and password, to be ensure you are ready to take this challenge</p>
-        <p>After clicking ENTER button, you will have {{ session.allowTimeMinutes }} minutes of HERO power to escape from this digital maze</p>
+        <p>After clicking ENTER button, you will have 15 minutes of HERO power to escape from this digital maze</p>
         <p>If time is over, you cannot exit from the maze and you may need to return starting point to try again</p>
         <h3>READY TO GO?</h3>
         <button id="enterBtn">ENTER</button>

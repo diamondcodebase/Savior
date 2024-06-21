@@ -1,11 +1,10 @@
 // Get the buttons container, the exit button and the score count
 const btnContainer = document.getElementById('buttons-container');
 const exitBtn = document.getElementById('exitBtn');
-const scoreDisplay =  document.getElementById('scoreDisplay');
-const scoreCount = document.getElementById('scoreCount');
+const scoreCount = document.getElementById('scoreDisplay');
 
 // set checkpoints and victoryScore
-const checkpoints = [0,40]; //[0, 7, 11, 15, 21, 23, 27, 30, 31, 35, 37, 40, 45];
+const checkpoints = [0, 7, 11, 15, 21, 27, 30, 33, 35, 37, 40, 45];
 const victoryScore = 50;
 
 // Initialize the score count to 0
@@ -23,10 +22,10 @@ for (let i = 1; i <= 4; i++) {
     btnContainer.appendChild(button);
 }
 
-// // Add event listener for exit button
-// exitBtn.addEventListener('click', () => {
-//     location.replace("san");
-// });;
+// Add event listener for exit button
+exitBtn.addEventListener('click', () => {
+    location.replace("san");
+});;
 
 // Start the game
 swapButtons();
@@ -37,8 +36,7 @@ function handleButtonClick(event) {
     const button = event.target;
     if (button === tgtButton) {
         score++;
-        scoreCount.innerHTML = `${score}`;  
-        scoreDisplay.style.fontSize = adjustFontSize(score) + "px";    
+        scoreCount.innerHTML = `${score}`;      
     }
     else {
         // randomize the deduction
@@ -47,41 +45,7 @@ function handleButtonClick(event) {
         scoreCount.innerHTML = `${score}`;  
     }
     swapButtons();
-}
-
-// Function to change score font size
-function adjustFontSize(score){
-    if(score < 5){
-        return 20;
-    }
-    else if(score < 10){
-        return 24;
-    }
-    else if(score < 15){
-        return 28;
-    }
-    else if(score < 20){
-        return 32;
-    }
-    else if(score < 25){
-        return 36;
-    }
-    else if(score < 30){
-        return 40;
-    }
-    else if(score < 35){
-        return 44;
-    }
-    else if(score < 40){
-        return 48;
-    }
-    else if(score < 45){
-        return 52;
-    }
-    else{
-        return 56;
-    }
-}
+  }
 
 // Function to swap button positions
 function swapButtons() {

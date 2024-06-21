@@ -1,4 +1,4 @@
-{% extends "nonlevel.html" %}
+{% extends "base.html" %}
 
 {% block title %}
     Register
@@ -6,19 +6,18 @@
 
 {% block content %}
 <div class="col-md-12 text-center">
-    <h4>First, Choose your hero and password, click start</h4>
+    <h4>Choose your hero and click start</h4>
     <form action="#" method="POST">
         <div>
             <p>Hero:</p>
-            <select name="hero" placeholder="Choose Your Name" required>
+            <select name="hero" placeholder="Choose Your Name">
                 <option>Amoro</option>
                 <option>Belle</option>
                 <option>LukeSkywalker</option>
             </select>
             <p>Password:</p>
-            <input type="password" name="password" required/>
-            <br>
-            <input type="submit" value="start"/>        
+            <input type="password" name="password" /><br>
+            <input type="submit" value="submit"/>        
         </div>
         <br>
     </form>
