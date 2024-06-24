@@ -1,11 +1,11 @@
 // Get the buttons container, the exit button and the score count
 const btnContainer = document.getElementById('buttons-container');
-const exitBtn = document.getElementById('exitBtn');
+const exitForm = document.getElementById('exitForm');
 const scoreCount = document.getElementById('scoreDisplay');
 
 // set checkpoints and victoryScore
 const checkpoints = [0, 7, 11, 15, 21, 27, 30, 33, 35, 37, 40, 45];
-const victoryScore = 50;
+const victoryScore = 10;
 
 // Initialize the score count to 0
 let score = 0;
@@ -23,9 +23,9 @@ for (let i = 1; i <= 4; i++) {
 }
 
 // Add event listener for exit button
-exitBtn.addEventListener('click', () => {
-    location.replace("san");
-});;
+// exitBtn.addEventListener('click', () => {
+//     location.replace("san");
+// });;
 
 // Start the game
 swapButtons();
@@ -52,7 +52,7 @@ function swapButtons() {
     // if score reach the victory score, hidden buttons and show exit
     if(score >= victoryScore){
         btnContainer.style.display = 'none';
-        exitBtn.style.display = 'block';
+        exitForm.classList.remove('hidden');
     }
 
     if(!checkpoints.includes(score)){

@@ -27,11 +27,14 @@ class heros(db.Model):
 
 @app.route("/")
 def start():
+    session["hero"] = None
     return render_template("start.html")
 
 
 @app.route("/register", methods=["POST", "GET"])
 def register():    
+    session["hero"] = None
+
     if request.method == "POST":
         # set the session to be permanent first
         session.permanent = True
@@ -58,22 +61,37 @@ def register():
         return render_template("register.html")
 
 
+@app.route("/about")
+def about():
+    session["hero"] = None
+    return render_template("about.html")
+
+
 @app.route("/view")
 def view():
+    if session["hero"] == None:
+        return redirect(url_for("start"))
     return render_template("view.html")
+    
 
+@app.route("/barrier")
+def barrier():
+    return render_template("barrier.html")
+    
 
 @app.route("/0")
 def level0():
-    if "hero" in session:
-        session.permanent = False
-        return render_template("level0.html")
-    else:
-        return render_template("register.html")
+    if session["hero"] == None:
+        return redirect(url_for("barrier"))        
+    session.permanent = False
+    return render_template("level0.html")       
 
 
 @app.route("/1", methods=["POST", "GET"])
 def level1():
+    if session["hero"] == None:
+        return redirect(url_for("barrier"))   
+
     if request.method == "POST":
         # if the request is POST, store the um and pw in session
         nm = request.form["nm"]
@@ -90,13 +108,29 @@ def level1():
     return render_template("level1.html")
 
 
-@app.route("/oneplusone")
+@app.route("/oneplusone", methods=["POST", "GET"])
 def level2():
+    if session["hero"] == None:
+        return redirect(url_for("barrier"))
+    if "nm" not in session or "pw" not in session:
+        return redirect(url_for("level0"))
+    if request.method == "POST":
+        passCount = request.form["passCount"]
+        session["passCount"] = passCount
+        if "passCount" in session:
+            return redirect(url_for("level3")) 
     return render_template("level2.html")    
 
 
 @app.route("/san", methods=["POST", "GET"])
 def level3():
+    if session["hero"] == None:
+        return redirect(url_for("barrier"))
+    if "nm" not in session or "pw" not in session:
+        return redirect(url_for("level0"))
+    if "passCount" not in session:
+        return redirect(url_for("level2")) 
+
     if request.method == "POST":
         # if the request is POST, store the um and pw in session
         hero = request.form["hero"]
@@ -119,6 +153,7 @@ def level3():
 
 @app.route("/congrat")
 def congrat():
+    session["hero"] = None
     return render_template("congrat.html")
 
 if __name__ == "__main__" :

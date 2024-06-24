@@ -13,7 +13,10 @@
 	<h2>Find the button can help you to get score and reach 50 to pass to next level</h2>
 	<div class="container">
 		<p>Score: <span id="scoreDisplay">0</span></p>
-		<button id="exitBtn">Go To Next Level!</button>
+		<form id="exitForm" action="#" method="post" class="hidden">
+			<p class="hidden"><input type="text" name="passCount" value="50"/></p>
+			<p><input type="submit" name="submit" value="Go To Next Level!"/></p>
+		</form>
 	</div>
 	<div id="buttons-container"></div>
 </div>    
