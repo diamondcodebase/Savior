@@ -20,7 +20,7 @@ function countdown() {
 function startTimer() {
     timerContainer.classList.remove('hidden');
     clearInterval(countdownInterval);
-    countdownTime = 180;
+    countdownTime = 120;
     updateTimer();
     sessionStorage.removeItem('countdownTime');
 }
