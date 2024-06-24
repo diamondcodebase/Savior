@@ -48,6 +48,7 @@ def register():
 
             session["hero"] = hero
             session["password"] = password
+            session["allowTimeMins"] = allowTimeMinutes
 
             # redirect to the view page with session of hero and password
             return redirect(url_for("view"))

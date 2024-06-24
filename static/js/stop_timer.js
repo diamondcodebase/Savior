@@ -1,6 +1,6 @@
 function resetTimer() {
   clearInterval(countdownInterval);
-  countdownTime = 300;
+  countdownTime = 120;
   updateTimer();
   sessionStorage.removeItem('countdownTime');
   timerContainer.classList.add('hidden');
