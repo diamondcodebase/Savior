@@ -1,5 +1,6 @@
 from flask import Flask, redirect, url_for, render_template, request, session, flash
 from datetime import datetime, timedelta
+import time
 from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
@@ -7,28 +8,33 @@ app.secret_key = "hello" # secret_key is essential to start the session
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///users.sqlite3" # configure the sqlite database setting
 app.config["SQLALCHEMY_TRACK_MODIFICATION"] = False # this is optional setting
 
-ALLOW_TIME_MINUTES = 2
+ALLOW_TIME_MINUTES = 1
 app.permanent_session_lifetime = timedelta(minutes=ALLOW_TIME_MINUTES) # set the permanent
 
 db = SQLAlchemy(app) # set up the database
 
 # define a hero class to define the data model to database table hero
 class Hero(db.Model):
+    __tablename__ = 'Hero'
     _id = db.Column("id", db.Integer, primary_key=True) # unique identification
     name = db.Column(db.String(100)) # if you dont define name, the parameter name is same as variable
     password = db.Column(db.String(200))
     modifyTime = db.Column(db.DateTime(timezone=True)) # SQLAlchemy takes charge of datetime value setting 
+    expiryTimestamp = db.Column(db.Integer) # timestamp record for expiry time
 
-    def __init__(self, name, password, modifyTime):
+    def __init__(self, name, password, modifyTime, expiryTimestamp):
         self.name = name
         self.password = password
         self.modifyTime = modifyTime
+        self.expiryTimestamp = expiryTimestamp
 
 
-
-@app.route("/")
+@app.route("/", methods=["POST", "GET"])
 def start():
     session["hero"] = None
+    if request.method == "POST":
+        session["allow_time_mins"] = ALLOW_TIME_MINUTES
+        return redirect(url_for("register"))
     return render_template("start.html")
 
 
@@ -48,14 +54,15 @@ def register():
             # update database record
             found_hero.password = password
             found_hero.modifyTime = datetime.now()
+            found_hero.expiryTimestamp = time.time() + ALLOW_TIME_MINUTES * 60 * 1000
             db.session.commit()
 
             session["hero"] = hero
-            session["password"] = password
-            session["allow_time_mins"] = ALLOW_TIME_MINUTES
+            session["password"] = password            
+            session["expiryTime"] = found_hero.expiryTimestamp
 
             # redirect to the view page with session of hero and password
-            return redirect(url_for("view"))
+            return redirect(url_for("level0"))
         else:
             return render_template("register.html")
     else:
@@ -68,28 +75,32 @@ def about():
     return render_template("about.html")
 
 
-@app.route("/view")
-def view():
-    if session["hero"] == None:
-        return redirect(url_for("start"))
-    return render_template("view.html")
-    
-
 @app.route("/barrier")
 def barrier():
+    session["hero"] = None
     return render_template("barrier.html")
     
 
+@app.route("/timesup")
+def timesup():
+    session["hero"] = None
+    return render_template("timesup.html")
+
+
 @app.route("/0")
 def level0():
+    if "hero" not in session:
+        return redirect(url_for("start"))   
     if session["hero"] == None:
-        return redirect(url_for("barrier"))        
+        return redirect(url_for("barrier"))       
     session.permanent = False
     return render_template("level0.html")       
 
 
 @app.route("/1", methods=["POST", "GET"])
 def level1():
+    if "hero" not in session:
+        return redirect(url_for("start"))  
     if session["hero"] == None:
         return redirect(url_for("barrier"))   
 
@@ -111,6 +122,8 @@ def level1():
 
 @app.route("/oneplusone", methods=["POST", "GET"])
 def level2():
+    if "hero" not in session:
+        return redirect(url_for("start"))  
     if session["hero"] == None:
         return redirect(url_for("barrier"))
     if "nm" not in session or "pw" not in session:
@@ -125,6 +138,8 @@ def level2():
 
 @app.route("/san", methods=["POST", "GET"])
 def level3():
+    if "hero" not in session:
+        return redirect(url_for("start"))  
     if session["hero"] == None:
         return redirect(url_for("barrier"))
     if "nm" not in session or "pw" not in session:
