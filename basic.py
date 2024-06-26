@@ -17,12 +17,13 @@ class Hero(db.Model):
     _id = db.Column("id", db.Integer, primary_key=True) # unique identification
     name = db.Column(db.String(100)) # if you dont define name, the parameter name is same as variable
     password = db.Column(db.String(200))
-    modifyTime = db.Column(db.String(200))
+    modifyTime = db.Column(db.DateTime(timezone=True)) # SQLAlchemy takes charge of datetime value setting 
 
     def __init__(self, name, password, modifyTime):
         self.name = name
         self.password = password
         self.modifyTime = modifyTime
+
 
 
 @app.route("/")
@@ -46,7 +47,7 @@ def register():
         if found_hero:
             # update database record
             found_hero.password = password
-            found_hero.modifyTime = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+            found_hero.modifyTime = datetime.now()
             db.session.commit()
 
             session["hero"] = hero
@@ -144,7 +145,7 @@ def level3():
             flash("Your password is incorrect, please correct and try again")
         else:
             found_hero = Hero.query.filter_by(name=hero).first() # query the selected hero from database
-            if datetime.strptime(found_hero.modifyTime, '%Y-%m-%d %H:%M:%S') + timedelta(0, 60*ALLOW_TIME_MINUTES) < datetime.now():
+            if found_hero.modifyTime + timedelta(0, 60*ALLOW_TIME_MINUTES) < datetime.now():
                 flash("Your hero power time is over, mission failed. Please return to the starting point")
             else:
                 return redirect(url_for("congrat")) # if player give correct information of hero and password, go to congrat, end game    
