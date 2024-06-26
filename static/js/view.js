@@ -3,5 +3,5 @@ const mins = document.getElementById('mins');
 
 enterButton.addEventListener('click', () => {
     location.replace("0");
-    sessionStorage["allowTimeMins"] = mins.innerHTML;
+    sessionStorage["allow_time_mins"] = mins.innerHTML;
 });

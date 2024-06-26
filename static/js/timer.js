@@ -2,5 +2,5 @@ const remainTime = document.getElementById('remainTime');
 const timerContainer = document.getElementById('timer-container');
 
 let countdownInterval;
-let allowTimeMins = sessionStorage.getItem("allowTimeMins");
-let countdownTime =  sessionStorage.getItem('countdownTime') || allowTimeMins * 60;
+let allow_time_mins = sessionStorage.getItem("allow_time_mins");
+let countdownTime =  sessionStorage.getItem('countdownTime') || allow_time_mins * 60;

@@ -7,13 +7,13 @@ app.secret_key = "hello" # secret_key is essential to start the session
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///users.sqlite3" # configure the sqlite database setting
 app.config["SQLALCHEMY_TRACK_MODIFICATION"] = False # this is optional setting
 
-allowTimeMinutes = 2
-app.permanent_session_lifetime = timedelta(minutes=allowTimeMinutes) # set the permanent
+ALLOW_TIME_MINUTES = 2
+app.permanent_session_lifetime = timedelta(minutes=ALLOW_TIME_MINUTES) # set the permanent
 
 db = SQLAlchemy(app) # set up the database
 
 # define a hero class to define the data model to database table hero
-class heros(db.Model):
+class Hero(db.Model):
     _id = db.Column("id", db.Integer, primary_key=True) # unique identification
     name = db.Column(db.String(100)) # if you dont define name, the parameter name is same as variable
     password = db.Column(db.String(200))
@@ -42,7 +42,7 @@ def register():
         hero = request.form["hero"]
         password = request.form["password"]
 
-        found_hero = heros.query.filter_by(name=hero).first() # query the selected hero from database
+        found_hero = Hero.query.filter_by(name=hero).first() # query the selected hero from database
         if found_hero:
             # update database record
             found_hero.password = password
@@ -51,7 +51,7 @@ def register():
 
             session["hero"] = hero
             session["password"] = password
-            session["allowTimeMins"] = allowTimeMinutes
+            session["allow_time_mins"] = ALLOW_TIME_MINUTES
 
             # redirect to the view page with session of hero and password
             return redirect(url_for("view"))
@@ -143,8 +143,8 @@ def level3():
         elif password != session["password"]:
             flash("Your password is incorrect, please correct and try again")
         else:
-            found_hero = heros.query.filter_by(name=hero).first() # query the selected hero from database
-            if datetime.strptime(found_hero.modifyTime, '%Y-%m-%d %H:%M:%S') + timedelta(0, 60*allowTimeMinutes) < datetime.now():
+            found_hero = Hero.query.filter_by(name=hero).first() # query the selected hero from database
+            if datetime.strptime(found_hero.modifyTime, '%Y-%m-%d %H:%M:%S') + timedelta(0, 60*ALLOW_TIME_MINUTES) < datetime.now():
                 flash("Your hero power time is over, mission failed. Please return to the starting point")
             else:
                 return redirect(url_for("congrat")) # if player give correct information of hero and password, go to congrat, end game    
