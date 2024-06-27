@@ -5,7 +5,7 @@ const scoreCount = document.getElementById('scoreDisplay');
 
 // set checkpoints and victoryScore
 const checkpoints = [0, 7, 11, 15, 21, 27, 30, 33, 35, 37, 40, 45];
-const victoryScore = 10;
+const victoryScore = 50;
 
 // Initialize the score count to 0
 let score = 0;

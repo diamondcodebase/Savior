@@ -9,7 +9,7 @@ app.secret_key = "hello" # secret_key is essential to start the session
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///users.sqlite3" # configure the sqlite database setting
 app.config["SQLALCHEMY_TRACK_MODIFICATION"] = False # this is optional setting
 
-ALLOW_TIME_MINUTES = 1
+ALLOW_TIME_MINUTES = 2
 app.permanent_session_lifetime = timedelta(minutes=ALLOW_TIME_MINUTES) # set the permanent
 
 db = SQLAlchemy(app) # set up the database
