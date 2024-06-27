@@ -11,9 +11,9 @@
         <div>
             <p>Hero:</p>
             <select name="hero" placeholder="Choose Your Name">
-                <option>Amoro</option>
-                <option>Belle</option>
-                <option>LukeSkywalker</option>
+                {% for hero in heroNames %}
+                    <option value="{{ hero }}">{{ hero }}</option>
+                {% endfor %}
             </select>
             <p>Password:</p>
             <input type="password" name="password" /><br>

@@ -3,6 +3,7 @@ from datetime import datetime, timedelta
 import time
 from flask_sqlalchemy import SQLAlchemy
 
+
 app = Flask(__name__)
 app.secret_key = "hello" # secret_key is essential to start the session
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///users.sqlite3" # configure the sqlite database setting
@@ -12,6 +13,7 @@ ALLOW_TIME_MINUTES = 1
 app.permanent_session_lifetime = timedelta(minutes=ALLOW_TIME_MINUTES) # set the permanent
 
 db = SQLAlchemy(app) # set up the database
+
 
 # define a hero class to define the data model to database table hero
 class Hero(db.Model):
@@ -27,6 +29,12 @@ class Hero(db.Model):
         self.password = password
         self.modifyTime = modifyTime
         self.expiryTimestamp = expiryTimestamp
+
+# function to get the available hero name list
+def getHeroNameList():
+    restrictedTime = str(round(datetime.now().timestamp())) 
+    herolist = Hero.query.filter(Hero.expiryTimestamp < restrictedTime).all()
+    return [hero.name for hero in herolist]
 
 
 @app.route("/", methods=["POST", "GET"])
@@ -54,7 +62,7 @@ def register():
             # update database record
             found_hero.password = password
             found_hero.modifyTime = datetime.now()
-            found_hero.expiryTimestamp = time.time() + ALLOW_TIME_MINUTES * 60 * 1000
+            found_hero.expiryTimestamp = int(round(datetime.now().timestamp())) + ALLOW_TIME_MINUTES * 60
             db.session.commit()
 
             session["hero"] = hero
@@ -64,9 +72,11 @@ def register():
             # redirect to the view page with session of hero and password
             return redirect(url_for("level0"))
         else:
-            return render_template("register.html")
+            heroNames = getHeroNameList()
+            return render_template("register.html", heroNames = heroNames)
     else:
-        return render_template("register.html")
+        heroNames = getHeroNameList()
+        return render_template("register.html", heroNames = heroNames)
 
 
 @app.route("/about")
