@@ -19,6 +19,13 @@ button, input, select {
     margin-bottom: 10px;
 }
 
+.footer {
+  position:sticky;
+  height: 40px;
+  clear:both;
+  padding:10px;
+} 
+
 #timer-container {
     text-align: center;
     padding: 10px;

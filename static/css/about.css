@@ -1,0 +1,11 @@
+p {
+    font-size: large;
+    font-weight: regular;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.container {
+    padding-top: 20px;
+    padding-bottom: 20px;
+}

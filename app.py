@@ -121,7 +121,7 @@ def level1():
         session["nm"] = nm
         session["pw"] = pw
         if session["nm"] != "username":
-            flash("In Name blank, please enter username")
+            flash("Inside Name field, please enter username")
         elif session["pw"] != "incorrect":
             flash("Your password is incorrect")
         else:

@@ -21,8 +21,8 @@
         <li class="nav-item active">
           <a class="nav-link" href="/">Starting Point<span class="sr-only">(current)</span></a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/">Return</a>
+        <li class="nav-item active">
+          <a class="nav-link" href="/about">About</a>
         </li>
         <li class="nav-item">
           <a class="nav-link invisible" id="light_btn" href="/4l">Turn On The Light</a>
@@ -42,6 +42,7 @@
   {% block body %}{% endblock %}
 
 
+
   <!-- And import bootstrap js : https://getbootstrap.com/docs/4.3/getting-started/introduction/ -->
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
     integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
@@ -55,5 +56,10 @@
   <script src="../static/js/timer.js"></script>
     {% block script %}{% endblock %}
 </body>
+
+<footer class="footer">
+  Powered by Flask and PythonEverywhere |
+  Created by Diamond Dai 2024
+</footer>
 
 </html>

@@ -3,17 +3,50 @@
 	About Savior
 {% endblock %}
 
+{% block css %}
+	<link rel="stylesheet" href="../static/css/about.css">
+{% endblock %}
+
 {% block content %}
-	<div class="col-md-12 text-center">    
-		<h2>About Savior</h2>
-		<p>Welcome to my game "Savior".</p>
-		<p>This game was built using the Flask web framework, a powerful and flexible Python-based tool for creating dynamic web applications. 
-		<p>It was deployed on Linode server</p>
-		<p>Hope you enjoy the game</p>
-		<br><br>
-		<p>Powered by Flask and Linode</p>
-		<p>Written in by Diamond Dai </p>
-		<p><a href="http://diamondcoding.click">Visit Diamond's Webpage</a></p>
+	<div class="container">
+		<div class="row justify-content-center">
+			<h2>About Savior</h2>
+		</div>
+		<div class="row">
+			<p>Welcome to my game "Savior". This cool game was built using the Flask web framework - 
+				a powerful and flexible Python-based tool for creating web applications. 
+			I hosted it on PythonAnywhere, which is an awesome choice for Python projects. 
+			It's especially great for beginners or folks on a budget, since you get one free web app per account.
+			The platform also has a really user-friendly web interface and supports Flask right out of the box. </p>
+			<p>I've been watching Tim's youtube videos to pick up the fundamentals of Flask, 
+				and then I found this super helpful article from Kumar Vishal on deploying to PythonAnywhere. 
+				Their step-by-step instructions and guidance have been invaluable.
+			<p>I'm really grateful to have gained all this new technical knowledge - 
+				it's stuff I didn't have much exposure to before, but it's been eye-opening. Hope you enjoy the game</p>
+		</div>
+		<div class="row">
+			<p><a href="http://diamondcoding.click">Visit Diamond's Webpage</a></p>
+		</div>
+	</div>
+
+	<div class="container">
+		<div class="row">
+			<h4>References</h4>
+		</div>
+		<div class="row">
+			<ul>
+				<li>
+					<a href="https://www.youtube.com/playlist?list=PLzMcBGfZo4-n4vJJybUVV3Un_NFS5EOgX">
+						Flask Youtube tutorials by Tim
+					</a>
+				</li>
+				<li>
+					<a href="https://medium.com/@kumar.vishal9626/easiest-way-to-run-a-python-flask-app-on-a-server-for-free-using-pythonanywhere-898d78a2e6cf">
+						PythonEverywhere guideline by Kumar Vishal
+					</a>
+				</li>
+			</ul>
+		</div>
 	</div>
 {% endblock %}
 
